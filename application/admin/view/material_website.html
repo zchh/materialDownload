@@ -1,0 +1,90 @@
+{extend name="base/base" /}
+{block name="main"}
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="box">
+
+
+
+            <div class="box-header">
+                <h3 class="box-title">素材网站列表</h3>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>网站名</th>
+                        <th>网站图片</th>
+                        <th>网址</th>
+                        <!--<th>操作</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {notempty name="data"}
+                    {volist name="data" id="single"}
+                    <tr>
+                        <td>{$single.website_id}</td>
+                        <td>{$single.website_name}</td>
+                        <td><img src="{$single.website_pic_url}"></td>
+                        <td>{$single.website_url}</td>
+                        <!--<td><a href="" style="color:limegreen" data-toggle="modal" data-target="#add_question_{$single.website_id}">编辑</a>-->
+                        <!--</td>-->
+                    </tr>
+
+
+
+                    <!--<div class="modal fade" id="add_question_{$single.website_id}">-->
+                        <!--<div class="modal-dialog">-->
+                            <!--<div class="modal-content">-->
+                                <!--<div class="modal-header">-->
+                                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                                        <!--<span aria-hidden="true">&times;</span></button>-->
+                                    <!--<h4 class="modal-title">编辑素材网站</h4>-->
+                                <!--</div>-->
+                                <!--<form enctype="multipart/form-data form-horizontal">-->
+                                    <!--<div class="modal-body">-->
+                                        <!--<div class="form-group" >-->
+                                            <!--<div class="col-sm-12" style="margin-bottom: 10px">-->
+                                                <!--<input name="" type="text" class="form-control my-colorpicker1" id="inputEmail3" placeholder="请在这里输入标题">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+                                            <!--<div class="col-sm-12">-->
+                                                <!--<textarea name="question_content" id="questionEditor" style="width:100%;height:380px;"></textarea>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div style="text-align: center">-->
+                                        <!--&lt;!&ndash;<button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>&ndash;&gt;-->
+                                        <!--<button type="button" style="background: #FB9C60;border: 0;margin: 15px auto" class="btn btn-primary" id="addQuestion" data-dismiss="modal">确认添加</button>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+                    <!--</div>-->
+
+
+                    {/volist}
+                    {/notempty}
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+{/block}

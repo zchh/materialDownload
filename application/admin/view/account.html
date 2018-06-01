@@ -1,0 +1,245 @@
+{extend name="base/base" /}
+{block name="main"}
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="box">
+
+            <div class="box-header">
+                <h3 class="box-title">账号管理</h3>
+            </div>
+
+            <div style="position: relative;margin-bottom: 69px" >
+                <button  type="button" class="btn btn-default pull-right" style="background: #67AEC2;color: white;border: none;border-radius: 5px" data-toggle="modal" data-target="#modal-default" id="add-model">
+                    新增
+                </button>
+            </div>
+
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>网站</th>
+                        <th>账号</th>
+                        <th>密码</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {notempty name="data"}
+                    {volist name="data" id="single"}
+                    <tr>
+                        <td>{$single.website}</td>
+                        <td>{$single.account_number}</td>
+                        <td>{$single.password}</td>
+
+                        <td><a href="" style="color:limegreen" data-toggle="modal" data-target="#modal-edit-{$single.account_id}">编辑</a>
+                            <a href=""  style="color:limegreen" onclick="deleteEntity('{$single.account_id}')">删除</a>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="modal-edit-{$single.account_id}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">编辑</h4>
+                                </div>
+                                <form action="/admin/account/edit/{$single.account_id}" method="post">
+                                    <div class="modal-body">
+                                        <label>账号</label>
+                                        <input type="text" class="form-control my-colorpicker1" name="account_number" value="{$single.account_number}">
+                                        <br>
+                                        <label>密码</label>
+                                        <input type="text" class="form-control my-colorpicker1" name="password" value="{$single.password}">
+                                        <br>
+                                        <label>绑定的素材网站</label>
+                                        <select name="type" class="form-control">
+                                            <option value="">--</option>
+                                            {notempty name="websiteList"}
+                                            {volist name="websiteList" id="single2"}
+                                            {if condition="$single2.website_id == $single.type"}
+                                            <option value="{$single2.website_id}" selected="selected">{$single2.website_name}</option>
+                                            {else /}
+                                            <option value="{$single2.website_id}">{$single2.website_name}</option>
+                                            {/if}
+
+                                            {/volist}
+                                            {/notempty}
+                                        </select>
+                                        <br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button>
+                                        <input type="submit" style="background: #FB9C60;border: 0" class="btn btn-primary edit" value="确定修改">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/volist}
+                    {/notempty}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <form action="/admin/user">
+                <div class="modal-body">
+                    <label>账号</label>
+                    <input id="number" type="text" class="form-control my-colorpicker1" name="account_number2" required>
+                    <label>密码</label>
+                    <input id="download_times" type="text" class="form-control my-colorpicker1" name="password2">
+                    <label>绑定的素材网站</label>
+                    <select name="type2" class="form-control">
+                        <option value="">--</option>
+                        {notempty name="websiteList"}
+                        {volist name="websiteList" id="single"}
+                        <option value="{$single.website_id}">{$single.website_name}</option>
+                        {/volist}
+                        {/notempty}
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button>
+                    <button style="background: #FB9C60;border: 0" class="btn btn-primary" id="add" data-dismiss="modal">确认添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true,
+        });
+    });
+
+    //添加
+    $("#add").click(function () {
+        var account_number =  $("[name='account_number2']").val();
+        var password =  $("[name='password2']").val();
+        var type = $("[name='type2']").val();
+        if(account_number == '' || password == '' || type == ''){
+            alert('缺少输入');
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/account/add',
+            data: {
+                'account_number': account_number,
+                'password': password,
+                'type': type
+            },
+            dataType: "json",
+            success: function(data) {
+                alert(data.msg);
+                if(data.code == '201'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    });
+
+
+    function deleteEntity(id) {
+        var result = confirm('确定删除该账号吗？');
+        if(result == false){
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/delete',
+            data: {
+                'type':2,
+                'id': parseInt(id)
+            },
+            dataType: "json",
+            success: function(data) {
+                alert(data.msg);
+                if(data.code == '204'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+    //修改
+    // $(".edit").click(function () {
+    //     var account_number =  $("[name='account_number']").val();
+    //     var password =  $("[name='password']").val();
+    //     var type = $("[name='type']").val();
+    //     if(account_number == '' || password == '' || type == ''){
+    //         alert('缺少输入');
+    //         return false;
+    //     }
+    //     $.ajax({
+    //         type: "post",
+    //         url: '/admin/account/add',
+    //         data: {
+    //             'account_number': account_number,
+    //             'password': password,
+    //             'type': type
+    //         },
+    //         dataType: "json",
+    //         success: function(data) {
+    //             alert(data.msg);
+    //             if(data.code == '201'){
+    //                 window.location.reload();
+    //             }
+    //         },
+    //         error:function(){
+    //             alert('系统错误');
+    //         }
+    //     });
+    // })
+
+
+
+
+
+</script>
+
+{/block}

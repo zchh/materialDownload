@@ -1,0 +1,47 @@
+{extend name="base/base" /}
+{block name="main"}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div style="position: relative;margin-bottom: 20px;margin-left: 20px;padding: 20px 20px 20px 20px">
+                <h4>淘宝店铺地址：</h4>
+                <br>
+                <input type="text" class="form-control" value="{$config_value}" name="config_value">
+                <br>
+                <button  class="btn btn-primary" id="sure">确认更换</button>
+                &nbsp;
+                <a href="{$config_value}">点击查看</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#sure").click(function () {
+        var value =  $("[name='config_value']").val();
+        if(value == ''){
+            alert('不能为空');
+            window.location.reload();
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/config/edit/9',
+            data: {
+                'config_value': value
+            },
+            dataType: "json",
+            success: function(data) {
+                alert(data.msg);
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+
+    })
+
+</script>
+{/block}

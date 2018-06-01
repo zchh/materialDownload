@@ -1,0 +1,240 @@
+{extend name="base/base" /}
+{block name="main"}
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="box">
+
+            <div class="box-header">
+                <h3 class="box-title">公告管理</h3>
+            </div>
+
+            <div style="position: relative;margin-bottom: 69px" >
+                <button  type="button" class="btn btn-default pull-right" style="background: #67AEC2;color: white;border: none;border-radius: 5px" data-toggle="modal" data-target="#modal-default" id="add-model">
+                    新增
+                </button>
+            </div>
+
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>通知内容</th>
+                        <th>启用</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {notempty name="data"}
+                    {volist name="data" id="single"}
+                    <tr>
+                        <td>{$single.notice_id}</td>
+                        <td>{$single.notice_content}</td>
+                        <td>
+                            {if condition="$single.is_open == 1"}
+                               启用状态
+                            {else /}
+                               关闭状态
+                            {/if}
+                        </td>
+
+                        <td><a href="" style="color:limegreen" data-toggle="modal" data-target="#modal-edit-{$single.notice_id}">编辑</a>
+                            <a href=""  style="color:limegreen" onclick="deleteEntity('{$single.notice_id}')">删除</a>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="modal-edit-{$single.notice_id}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">编辑</h4>
+                                </div>
+                                <form action="/admin/notice/edit/{$single.notice_id}" method="post">
+                                    <div class="modal-body">
+                                        <label>通知内容</label>
+                                        <input type="text" class="form-control my-colorpicker1" name="notice_content" value="{$single.notice_content}">
+                                        <br>
+                                        <label>是否启用</label>
+                                        <select name="is_open" class="form-control">
+                                            <option value="">--</option>
+                                            {if condition="1 == $single.is_open"}
+                                            <option value="1" selected="selected">启用</option>
+                                            <option value="0">关闭</option>
+                                            {else /}
+                                            <option value="1">启用</option>
+                                            <option value="0" selected="selected">关闭</option>
+                                            {/if}
+                                        </select>
+                                        <br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button>
+                                        <input type="submit" style="background: #FB9C60;border: 0" class="btn btn-primary edit" value="确定修改">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/volist}
+                    {/notempty}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <form action="/admin/notice/add">
+                <div class="modal-body">
+                    <label>通知内容</label>
+                    <input id="download_times" type="text" class="form-control my-colorpicker1" name="notice_content2">
+                    <br>
+                    <label>是否启用</label>
+                    <select name="is_open2" class="form-control">
+                        <option value="">--</option>
+                        <option value="1">启用</option>
+                        <option value="0">关闭</option>
+                    </select>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button>
+                    <button style="background: #FB9C60;border: 0" class="btn btn-primary" id="add" data-dismiss="modal">确认添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true,
+        });
+    });
+
+    //添加
+    $("#add").click(function () {
+        var notice_content2 =  $("[name='notice_content2']").val();
+        var is_open2 =  $("[name='is_open2']").val();
+        if(notice_content2 == '' || is_open2 == ''){
+            alert('缺少输入');
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/notice/add',
+            data: {
+                'notice_content': notice_content2,
+                'is_open': is_open2
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                alert(data.msg);
+                if(data.code == '201'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    });
+
+
+    function deleteEntity(id) {
+        var result = confirm('确定删除该账号吗？');
+        if(result == false){
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/delete',
+            data: {
+                'type':1,
+                'id': parseInt(id)
+            },
+            dataType: "json",
+            success: function(data) {
+                if(data.code == '204'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+    //修改
+    // $(".edit").click(function () {
+    //     var account_number =  $("[name='account_number']").val();
+    //     var password =  $("[name='password']").val();
+    //     var type = $("[name='type']").val();
+    //     if(account_number == '' || password == '' || type == ''){
+    //         alert('缺少输入');
+    //         return false;
+    //     }
+    //     $.ajax({
+    //         type: "post",
+    //         url: '/admin/account/add',
+    //         data: {
+    //             'account_number': account_number,
+    //             'password': password,
+    //             'type': type
+    //         },
+    //         dataType: "json",
+    //         success: function(data) {
+    //             alert(data.msg);
+    //             if(data.code == '201'){
+    //                 window.location.reload();
+    //             }
+    //         },
+    //         error:function(){
+    //             alert('系统错误');
+    //         }
+    //     });
+    // })
+
+
+
+
+
+</script>
+
+{/block}

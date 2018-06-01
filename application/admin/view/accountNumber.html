@@ -1,0 +1,467 @@
+{extend name="base/base" /}
+{block name="main"}
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="box">
+
+
+
+            <div class="box-header">
+                <h3 class="box-title">账号管理</h3>
+            </div>
+
+
+            <div style="position: relative;margin-bottom: 20px;margin-left: 20px" >
+                <form action="/admin/user" method="get">
+               <input name="keywords" placeholder="请输入账号或手机号或邮箱进行查询" style="width: 250px" value="{$requestParam.keywords}">
+                &nbsp;&nbsp; &nbsp;&nbsp;开通日期： <input type="text" name="open_time" class="layui-input" value="{$requestParam.open_time}"  style="width: 100px;"  autocomplete="off" id="time1">---<input type="text" name="end_time" class="layui-input" value="{$requestParam.end_time}"  style="width: 100px;"  autocomplete="off" id="time2">
+                &nbsp;&nbsp; &nbsp;&nbsp;状态：<select name="status">
+                                                {if condition="$requestParam.status == '1'"}
+                                                 <option value="">--</option>
+                                                 <option value="1" selected="selected">已激活</option>
+                                                 <option value="0">未激活</option>
+                                                {elseif condition="$requestParam.status == '0'"/}
+                                                 <option value="">--</option>
+                                                 <option value="1">已激活</option>
+                                                 <option value="0" selected="selected">未激活</option>
+                                                {else}
+                                                 <option value="" selected="selected">--</option>
+                                                 <option value="1">已激活</option>
+                                                 <option value="0">未激活</option>
+                                                {/if}
+                                              </select>
+                &nbsp;&nbsp; &nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="搜索">
+                </form>
+            </div>
+            <div style="position: relative;margin-bottom: 69px" >
+                <button class="btn btn-success pull-left" style="margin-left: 20px" id="active">批量激活</button>
+                <button class="btn btn-default pull-right" style="margin-left: 20px" id="export">导出</button>
+                <button  type="button" class="btn btn-default pull-right" style="background: #67AEC2;color: white;border: none;border-radius: 5px" data-toggle="modal" data-target="#modal-default" id="add-model">
+                    新增
+                </button>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th><button type="button" class="btn btn-default btn-sm checkbox-toggle" style="background: white;width: 15px;margin-top: -19px;height: 10px;outline: none;border: none"><i class="fa fa-square-o"></i></button>ID</th>
+                        <th>账号</th>
+                        <th>密码</th>
+                        <th>手机号</th>
+                        <th>邮箱</th>
+                        <th>开通日期</th>
+                        <th>剩余开通天数</th>
+                        <th>截止日期</th>
+                        <th>当天剩余下载次数</th>
+                        <th>账号权限</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {notempty name="data"}
+                    {volist name="data" id="single"}
+                    <tr>
+                        <td><input type="checkbox" name="check_num" value="{$single.user_id}" class="checkSingle">{$single.user_id}</td>
+                        <td>{$single.account_number}</td>
+                        <td>{$single.password}</td>
+                        <td>{$single.phone_number}</td>
+                        <td>{$single.mailbox}</td>
+                        <td>{$single.open_time}</td>
+                        <td>{$single.days}</td>
+                        <td>{$single.end_time}</td>
+                        <td>{$single.rest_download_times}</td>
+                        <td>{$single.permission}</td>
+                        <td>
+                            {if condition="$single.status == 0"}
+                              未激活
+                            {else /}
+                              已激活
+                            {/if}
+                        </td>
+                        <td><a href="" style="color:limegreen"  data-toggle="modal" data-target="#modal-edit-{$single.user_id}">编辑</a>
+                            <a href=""  style="color:limegreen" onclick="deleteEntity('{$single.user_id}')">删除</a>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="modal-edit-{$single.user_id}">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">编辑</h4>
+                    </div>
+                    <form action="/admin/user/edit/{$single.user_id}" method="post">
+                    <div class="modal-body">
+                    <label>账号</label>
+                    <input name="account_number" value="{$single.account_number}" type="text" class="form-control my-colorpicker1">
+                    <label>密码</label>
+                    <input name="password" value="{$single.password}" type="text" class="form-control my-colorpicker1">
+                    <label>手机号</label>
+                    <input name="phone_number" value="{$single.phone_number}" type="text" class="form-control my-colorpicker1">
+                        <label>邮箱</label>
+                    <input name="mailbox" value="{$single.mailbox}" type="text" class="form-control my-colorpicker1">
+                    <label>当天下载次数</label>
+                    <input name="download_times" value="{$single.download_times}" type="number" class="form-control my-colorpicker1">
+                        <label>当天剩余下载次数</label>
+                    <input name="rest_download_times" value="{$single.rest_download_times}" type="number" class="form-control my-colorpicker1">
+                    <label>是否为终生账号</label>
+                    <select name="is_permanent" class="form-control permanent_select_2">
+                    {if condition="$single.is_permanent == 1"}
+                    <option value="1" selected="selected">是</option>
+                    <option value="0">否</option>
+                    {else /}
+                    <option value="1">是</option>
+                    <option value="0" selected="selected">否</option>
+                    {/if}
+                    </select>
+                    {if condition="$single.is_permanent == 1"}
+                    <div class="date1" style="display: none">
+                    <label>开通日期</label>
+                    <input type="text" name="open_time" class="layui-input" value="{$single.open_time}"  style="width: 100px;"  autocomplete="off"><br>
+                    <label>截止日期</label>
+                    <input type="text" name="end_time"  class="layui-input" value="{$single.end_time}"  style="width: 100px;"  autocomplete="off"><br>
+                    </div>
+                    {else /}
+                        <div class="date_2" style="display: inline-block">
+                            <label>开通日期</label>
+                            <input type="text" name="open_time" class="layui-input" value="{$single.open_time}"  style="width: 100px;"  autocomplete="off"><br>
+                            <label>截止日期</label>
+                            <input type="text" name="end_time"  class="layui-input" value="{$single.end_time}"  style="width: 100px;"  autocomplete="off"><br>
+                        </div>
+                    {/if}
+
+                    <label>账号状态</label> <br>
+                    {if condition="$single.status == 1"}
+                    <input  type="radio" name="status" value="1" checked="checked"> 未激活
+                    <input type="radio" name="status" value="2" > 激活 <br>
+                    {else /}
+                    <input  type="radio" name="status" value="1"> 未激活
+                    <input type="radio" name="status" value="2" checked="checked"> 激活 <br>
+                    {/if}
+                        <label>账号权限</label><br>
+                        {notempty name="websiteList"}
+                        {volist name="websiteList" id="single2"}
+
+                        {in name="single2.website_name" value="$single.permission"}
+                        <input type="checkbox" name="permission[]" value="{$single2.website_id}" checked="checked">{$single2.website_name}
+                        {else /}
+                        <input type="checkbox" name="permission[]" value="{$single2.website_id}">{$single2.website_name}
+                        {/in}
+
+                        {/volist}
+                        {/notempty}
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button>
+                    <input type="submit" style="background: #FB9C60;border: 0" class="btn btn-primary edit" value="确定修改">
+                    </div>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+
+
+
+
+
+                    {/volist}
+                    {/notempty}
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <form action="/admin/user/add">
+                <div class="modal-body">
+                    <label>新增数量</label>
+                    <input name="number2" id="number" type="number" class="form-control my-colorpicker1">
+                    <label>当天下载次数</label>
+                    <input name="download_times2" id="download_times" type="number" class="form-control my-colorpicker1">
+                    <label>是否为终生账号</label>
+                    <select name="is_permanent2" class="form-control permanent_select">
+                        <option value="1">是</option>
+                        <option value="0" selected="selected">否</option>
+                    </select>
+                    <div class="date">
+                    <label>开通日期</label>
+                    <input type="text" name="open_time2"  class="layui-input" value=""  style="width: 100px;"  autocomplete="off" id="time3"><br>
+                    <label>截止日期</label>
+                    <input type="text" name="end_time2"  class="layui-input" value=""  style="width: 100px;"  autocomplete="off" id="time4"><br>
+                    </div>
+                    <label>账号状态</label> <br>
+                    <input  type="radio" name="status2" value="1" > 未激活
+                    <input type="radio" name="status2" value="2" > 激活 <br>
+                    <br>
+                    <label>账号权限</label><br>
+                    {notempty name="websiteList"}
+                    {volist name="websiteList" id="single"}
+                    <input type="checkbox" name="permission2[]" value="{$single.website_id}">{$single.website_name}
+                    {/volist}
+                    {/notempty}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">重置</button>
+                    <button style="background: #FB9C60;border: 0" class="btn btn-primary" id="add" data-dismiss="modal">确认添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="__STATIC__/layDate/laydate/laydate.js"></script>
+<script src="../../static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true,
+        });
+    });
+
+
+    $(document).ready(function(){
+        $(".permanent_select").change(function(){
+            //alert($(this).val());
+            if($(this).val()==0){
+                $(this).nextAll(".date").eq(0).css("display","inline-block");
+            }
+            if($(this).val()==1){
+                $(this).nextAll(".date").eq(0).css("display","none");
+            }
+        });
+
+        $(".permanent_select_2").change(function(){
+            //alert($(this).val());
+            if($(this).val()==0){
+                $(this).nextAll(".date_2").eq(0).css("display","inline-block");
+            }
+            if($(this).val()==1){
+                $(this).nextAll(".date_2").eq(0).css("display","none");
+            }
+        });
+
+    });
+
+
+
+    // var laydate = layui.laydate;
+    // var endDate= laydate.render({
+    //     elem: '#time4',//选择器结束时间
+    //     type: 'datetime',
+    //     min:"1970-1-1",//设置min默认最小值
+    //     done: function(value,date){
+    //         startDate.config.max={
+    //             year:date.year,
+    //             month:date.month-1,//关键
+    //             date: date.date,
+    //             hours: 0,
+    //             minutes: 0,
+    //             seconds : 0
+    //         }
+    //     }
+    // });
+    // //日期范围
+    // var startDate=laydate.render({
+    //     elem: '#time3',
+    //     type: 'datetime',
+    //     max:"2099-12-31",//设置一个默认最大值
+    //     done: function(value, date){
+    //         endDate.config.min ={
+    //             year:date.year,
+    //             month:date.month-1, //关键
+    //             date: date.date,
+    //             hours: 0,
+    //             minutes: 0,
+    //             seconds : 0
+    //         };
+    //     }
+    // });
+
+
+
+
+    //时间
+    laydate.render({
+        elem: '#time1' //或 elem: document.getElementById('test')、elem: lay('#test') 等
+    });
+    laydate.render({
+        elem: '#time2' //或 elem: document.getElementById('test')、elem: lay('#test') 等
+    });
+    laydate.render({
+        elem: '#time3' //或 elem: document.getElementById('test')、elem: lay('#test') 等
+    });
+    laydate.render({
+        elem: '#time4' //或 elem: document.getElementById('test')、elem: lay('#test') 等
+    });
+
+    $(".checkbox-toggle").click(function () {
+
+        $(".checkSingle").attr('checked','checked');
+
+        var clicks = $(this).data('clicks');
+        if (clicks) {
+            //Uncheck all checkboxes
+            $("input[type='checkbox']").iCheck("uncheck");
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+        } else {
+            //Check all checkboxes
+            $("input[type='checkbox']").iCheck("check");
+            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+        }
+        $(this).data("clicks", !clicks);
+    });
+
+    $(".checkSingle").on("click",function () {
+        $(this).attr('checked','checked');
+    });
+
+    //添加
+    $("#add").click(function () {
+        var number2 =  $("[name='number2']").val();
+        var download_times2 =  $("[name='download_times2']").val();
+        var is_permanent2 =  $("[name='is_permanent2']").val();
+        var status2 =  $("[name='status2']").val();
+        var open_time2 =  $("[name='open_time2']").val();
+        var end_time2 =  $("[name='end_time2']").val();
+        var permission2 =  $("[name='permission2']").val();
+
+        var is_open2 =  $("[name='is_open2']").val();
+        if(number2 == '' || download_times2 == '' || is_permanent2 == '' || status2 == '' || open_time2 == '' || end_time2 == '' || permission2 == ''){
+            alert('缺少输入');
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/user/add',
+            data: {
+                'number': number2,
+                'download_times': download_times2,
+                'is_permanent': is_permanent2,
+                'status': status2,
+                'open_time': open_time2,
+                'end_time': end_time2,
+                'permission': permission2
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                alert(data.msg);
+                if(data.code == '201'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    });
+
+    //激活
+    $("#active").click(function () {
+        var obj=document.getElementsByName('check_num');
+        var s='';
+        for(var i=0; i<obj.length; i++){
+            if(obj[i].checked){
+                s += obj[i].value;
+                s += ',';
+            }
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/user/active',
+            data: {
+                'check_num': s
+            },
+            dataType: "json",
+            success: function(data) {
+                alert(data.msg);
+                if(data.code == '201'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    })
+
+
+    //导出
+    $("#export").on("click",function () {
+        var obj=document.getElementsByName('check_num');
+        var s='';
+        for(var i=0; i<obj.length; i++){
+            if(obj[i].checked){
+                s += obj[i].value;
+                s += ',';
+            }
+        }
+        if(s == ''){
+            alert('请至少选择一条进行导出');
+            return false;
+        }
+        window.location.href = "/admin/user/export?check_num="+s;
+    })
+
+    function deleteEntity(id) {
+        var result = confirm('确定删除该账号吗？');
+        if(result == false){
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/delete',
+            data: {
+                'type':3,
+                'id': parseInt(id)
+            },
+            dataType: "json",
+            success: function(data) {
+                alert(data.msg);
+                if(data.code == '204'){
+                    window.location.reload();
+                }
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+    }
+
+
+
+
+</script>
+
+{/block}

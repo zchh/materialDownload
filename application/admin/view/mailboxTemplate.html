@@ -1,0 +1,104 @@
+{extend name="base/base" /}
+{block name="main"}
+<style>
+    .well{
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .box{
+        border-top: none;
+    }
+
+    #distribute{
+        margin-left: 5px;
+    }
+    .file-box{
+        display: inline-block;
+        position: relative;
+        padding: 6px 12px;
+        border-radius: 5px;
+        overflow: hidden;
+        color:#fff;
+        background-color: #ccc;
+    }
+    .file-btn{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        outline: none;
+        background-color: transparent;
+        filter:alpha(opacity=0);
+        -moz-opacity:0;
+        -khtml-opacity: 0;
+        opacity: 0;
+    }
+</style>
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="box">
+
+            <div style="position: relative;margin-bottom: 20px;margin-left: 20px;padding: 20px 20px 20px 20px">
+                <h5>收信息邮箱：</h5>
+                <input type="text" class="form-control" value="{$mail_inform}" name="config_value">
+                <br>
+                <h5>邮箱通知模板：</h5>
+                <lable>
+                    说明：#Administrators#：表示后台登录用户名。
+                          #Website#：表示某个网站名。
+                </lable>
+                <textarea name="config_value_2" class="form-control">{$mail_inform}</textarea>
+                <br>
+                {if condition="$mail_start == 1"}
+                <input type="radio" name="start" value="1" checked>开启
+                <input type="radio" name="start" value="0">关闭
+                {else}
+                <input type="radio" name="start" value="1">开启
+                <input type="radio" name="start" value="0" checked>关闭
+                {/if}
+                <br><br>
+                <button  class="btn btn-primary" id="sure">确认更换</button>
+                &nbsp;
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#sure").click(function () {
+        var value =  $("[name='config_value']").val();
+        var value2 =  $("[name='config_value_2']").val();
+        var value3 = $("[name='start']").val();
+        if(value == '' || value2 == '' || value3 == ''){
+            alert('不能为空');
+            window.location.reload();
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/admin/config/edit/2',
+            data: {
+                'config_value': value,
+                'config_value_2': value2,
+                'config_value_3': value3
+            },
+            dataType: "json",
+            success: function(data) {
+                alert(data.msg);
+            },
+            error:function(){
+                alert('系统错误');
+            }
+        });
+
+    })
+
+</script>
+{/block}

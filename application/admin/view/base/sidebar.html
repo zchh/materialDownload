@@ -1,0 +1,127 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <!--<li class="header">MAIN NAVIGATION</li>-->
+
+            {if condition="session('admin')['role'] == 1"}
+            {if condition="isset($activeType) AND $activeType == 1"}
+            <li class="active">
+            {else /}
+            <li>
+            {/if}
+                <a href="/admin/admin">
+                    <i class="fa fa-calendar"></i><span>副管理员列表</span>
+                </a>
+            </li>
+            {/if}
+
+            {if condition="isset($activeType) AND $activeType == 2"}
+            <li class="active">
+                {else /}
+            <li>
+                {/if}
+                <a href="/admin/user">
+                    <i class="fa fa-calendar"></i><span>账号列表</span>
+                </a>
+            </li>
+
+
+            {if condition="isset($activeType) AND $activeType == 3"}
+            <li class="active">
+                {else /}
+            <li>
+                {/if}
+                <a href="/admin/material_website">
+                    <i class="fa fa-calendar"></i><span>素材网站列表</span>
+                </a>
+            </li>
+
+            {if condition="isset($activeType) AND $activeType == 4"}
+            <li class="active">
+                {else /}
+            <li>
+                {/if}
+                <a href="/admin/account">
+                    <i class="fa fa-calendar"></i><span>素材网站账号列表</span>
+                </a>
+            </li>
+
+
+            {if condition="isset($activeType) AND $activeType == 5"}
+            <li class="active">
+                {else /}
+            <li>
+                {/if}
+                <a href="/admin/config/1">
+                    <i class="fa fa-calendar"></i><span>教材视频</span>
+                </a>
+            </li>
+
+
+            {if condition="isset($activeType)"}
+            {if condition="$activeType == 6 || $activeType == 7 || $activeType == 8 || $activeType == 9"}
+            <li class="treeview active">
+            {else /}
+            <li class="treeview">
+            {/if}
+            {else /}
+            <li class="treeview">
+            {/if}
+                <a href="#">
+                    <i class="fa fa-laptop"></i>
+                    <span>基础信息管理</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+
+                    {if condition="isset($activeType) AND $activeType == 6"}
+                    <li class="active">
+                        {else /}
+                    <li>
+                        {/if}
+                        <a href="/admin/config/4"><i class="fa fa-circle-o"></i>网站背景图片</a>
+                    </li>
+
+                    {if condition="isset($activeType) AND $activeType == 7"}
+                    <li class="active">
+                        {else /}
+                    <li>
+                        {/if}
+                        <a href="/admin/notice"><i class="fa fa-circle-o"></i>通知公告</a>
+                    </li>
+
+                    {if condition="isset($activeType) AND $activeType == 8"}
+                    <li class="active">
+                        {else /}
+                    <li>
+                        {/if}
+                        <a href="/admin/config/2"><i class="fa fa-circle-o"></i>邮箱模板设置</a>
+                    </li>
+
+                    {if condition="isset($activeType) AND $activeType == 9"}
+                    <li class="active">
+                        {else /}
+                    <li>
+                        {/if}
+                        <a href="/admin/config/9"><i class="fa fa-circle-o"></i>淘宝店铺地址设置</a>
+                    </li>
+
+
+
+
+
+                </ul>
+            </li>
+
+
+
+
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

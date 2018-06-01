@@ -1,0 +1,593 @@
+body{
+    font-family: '微软雅黑 Bold';
+}
+
+
+
+/* 主体 */
+.body{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url(../../static/images/bg.png) no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* 登录框 */
+.login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 556px;
+    height: 308px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, .3);
+    transform: translate(-50%,-50%);
+    padding: 29px;
+    box-sizing: border-box;
+}
+
+.login-logo{
+    margin-bottom: 31px;
+    text-align: center;
+}
+
+.login form {
+    width: 499px;
+    height: 136px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.login form div{
+    width: 499px;
+    height: 68px;
+    line-height: 68px;
+    padding-left: 14px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.login form div.login-username{
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.login form div label{
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.login form div input{
+    border: none;
+    outline: none;
+    color: #333;
+    font-size: 18px;
+    margin-top:-6px;
+}
+
+.login form div span,.login form div button{
+    
+}
+
+
+.login-bottom{
+    padding-top: 26px;
+}
+
+
+/* 客服信息 */
+a.service{
+    position: absolute;
+    bottom: 28px;
+    left: 34px;
+    color: #9d9e9e;
+    font-size: 14px;
+    padding-left: 30px;
+    background: url(../../static/images/service.png) no-repeat;
+}
+
+
+.login-remember{
+    color: white;
+     float: left;
+}
+
+.login-remember>input,.login-remember>span{
+    vertical-align: middle;
+}
+
+.login-forget{
+    color: white;
+    display: inline-block;
+    float: left;
+    margin-left: 64px;
+}
+
+.login-forget>img{
+    width: 15px;
+}
+
+.login-forget>img,.login-forget>span{
+    vertical-align: middle;
+}
+
+
+.login-buy{
+    color: #343331;
+    text-decoration: underline;
+    float: left;
+    margin-left: 54px;
+    padding-top: 1px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-password>img{
+   width: 29px;
+   vertical-align: middle;
+   margin-top: -6px;
+   padding-left: 152px;
+  
+}
+
+
+.login-username>img{
+    width: 17px;
+    vertical-align: middle;
+    margin-top: -5px;
+    padding-left: 158px;
+    
+}
+
+
+/* 找回密码的css样式 */
+
+.password_logo>span{
+   font-size: 18px;
+   color: white;
+}
+
+.password_logo>span,.password_logo>img{
+    vertical-align: middle;
+}
+
+
+.password_login{
+    height: 430px !important;
+}
+
+
+.password_find_email{
+    color: white;
+    height: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #91A3B1;
+}
+
+.password_find_email>span{
+    padding: 11px 20px;
+    background: rgba(255, 255, 255, .3);
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    cursor: pointer;
+}
+
+.password_input{
+    height: 50px !important;
+    line-height: 47px !important;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.password_yanzhengma{
+    padding: 10px 26px;
+    background: #E5E5E5;
+    border-radius: 20px;
+    color: #424242;
+    margin-left: 54px;
+    cursor: pointer;
+}
+
+
+.password_form{
+    height: 199px !important;
+}
+
+.password_btn{
+    text-decoration:none !important;
+    /*cursor: none !important;*/
+    padding-left: 14px !important;
+}
+
+.password_btn>span{
+    padding: 10px 42px;
+    background: white;
+    border-radius: 5px;
+}
+
+.password_btn>span:first-child{
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding:9px 42px; 
+}
+
+.letme_login{
+    height: 180px !important;
+    padding-top: 15px !important;
+}
+
+.letme_logo{
+    margin-bottom: 15px !important;
+}
+
+.letme_form{
+    height: 67px !important;
+}
+
+.letme_form_inner{
+    width: 476px !important;
+    height: 31px !important;
+    /*outline: 1px solid green !important;*/
+    padding-left: 0px !important;
+    float: left !important;
+    margin-top: 18px !important;
+    margin-left: 12px !important;
+}
+
+
+.letme_form_inner>div{
+    width: 175px !important;
+    height: 31px !important;
+    /*background: pink !important;*/
+    padding-left: 0 !important;
+    line-height: normal !important;
+}
+
+.letme_form_inner>div>img{
+    width: 32px;
+    vertical-align: middle;
+}
+
+
+
+.letme_form_inner>div>span{
+    vertical-align: middle;
+}
+
+.letme_form_inner>div:first-child{
+    float: left;
+}
+
+.letme_form_inner>div:last-child{
+    float: right;
+}
+
+.letme_kefu{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.letme_one{
+    font-size: 12px;
+}
+
+.mlxg_buy_progress{
+    /*width: 100%;*/
+    /*padding-left: 30px;*/
+    /*padding-right: 30px;*/
+    height: 310px;
+    background: white;
+    border-radius: 5px;
+}
+
+.mlxg_login{
+    width: 1200px !important;
+    height: 460px !important;
+}
+
+.mlxg_logo{
+    margin-bottom: 29px;
+}
+
+.mlxg_buy_progress_inner{
+    width: 1060px;
+    height: 240px;
+    /*outline: 1px solid orange;*/
+    margin-top: 36px;
+    float: left;
+    margin-left: 40px;
+}
+
+.mlxg_buy_progress_inner>div:nth-child(1)>img{
+    width: 100%;
+}
+
+.mlxg_qq_server{
+    width: 415px;
+    height: 31px;
+    /*outline: 1px solid tomato;*/
+    margin-top: 56px;
+    margin-left: 16px;
+}
+
+.mlxg_taobao_link{
+    width: 230px;
+    height: 23px;
+    /*outline: 1px solid tomato;*/
+    margin-top: 28px;
+    margin-left: 16px;
+}
+
+.mlxg_qq_server>div:first-child{
+    width: 211px;
+    height: 100%;
+    /*background: purple;*/
+    float: left;
+    line-height: 30px;
+}
+
+.mlxg_qq_server>div:last-child{
+    width: 179px;
+    height: 100%;
+    /*background: pink;*/
+    float: right;
+    line-height: 30px;
+}
+
+.mlxg_qq_server>div>span,.mlxg_qq_server>div>img{
+    vertical-align: middle;
+}
+
+
+/*主页*/
+.uzi_login{
+    width: 1103px !important;
+    height: 482px !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.uzi_logo{
+    text-align: center;
+    height: 67px;
+    width: 100%;
+}
+
+.uzi_logo>img{
+    height: 100%;
+}
+
+.uzi_search{
+    width: 100%;
+    height: 178px;
+    /*background: tomato;*/
+}
+
+.uzi_search_inner{
+    width: 710px;
+    height: 50px;
+    background: darksalmon;
+    margin: auto;
+}
+
+.uzi_three_select{
+    height: 236px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .3) !important;
+}
+
+.uzi_search_left{
+    width: 599px;
+    height: 100%;
+    background: white;
+    float: left;
+}
+
+.uzi_search_left>input {
+    height: 96.7%;
+    width: 100%;
+    outline: none;
+    border: none;
+    background: transparent;
+    text-indent: 20px;
+    font-size: 18px;
+}
+
+
+
+.uzi_search_right{
+    width: 111px;
+    height: 100%;
+    float: right;
+    background: #B6BCC2;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    line-height: 48px;
+    cursor: pointer;
+}
+
+
+
+.uzi_three_select_top{
+    height: 52px;
+    width: 448px;
+    background-color: rgba(255,255,255,.2);
+}
+
+.uzi_three_select_top>div>span{
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 37px;
+    color:#333333;
+}
+
+
+.uzi_three_select_top>div>span:nth-child(even){
+    color: white;
+}
+
+.uzi_three_select_top>div>span:nth-child(odd){
+    cursor: pointer;
+}
+
+.uzi_three_select_bottom{
+    width: 100%;
+    height: 183px;
+    /*background: pink;*/
+}
+
+.uzi_account_message{
+    width: 537px;
+    height: 130px;
+    /*background: green;*/
+}
+
+.uzi_account_message{
+    color: white;
+    font-size: 16px;
+}
+
+.uzi_account_message>div{
+    margin-bottom: 14px;
+}
+
+
+.uzi_body{
+    background: url(../../static/images/youhua.jpg) no-repeat !important;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+.uzi_image_website{
+    height: 116px;
+    /*background: tomato;*/
+}
+
+.uzi_image_website>div:first-child>img{
+    width: 150px;
+    margin-left: 28.7px;
+    cursor: pointer;
+}
+
+.uzi_image_website>div:first-child>img:first-child{
+    margin-left: 0;
+}
+
+#uzi_haha_two,#uzi_haha_three{
+    display: none;
+}
+
+
+/*导航*/
+.uzi_top_nav{
+    height: 50px;
+    width: 100%;
+    background:rgba(0,0,0,.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.uzi_top_nav_inner{
+    width: 1200px;
+    height: 100%;
+    /*outline: 1px solid tomato;*/
+    margin: auto;
+}
+
+.uzi_top_nav_left{
+    width: 155px;
+    height: 50px;
+    /*outline: 1px solid green;*/
+    color: white;
+    text-align: center;
+    position: relative;
+    float: left;
+}
+
+.uzi_hover_content{
+    width: 155px;
+    height: 159px;
+    background-color:rgba(0,0,0,.4) ;
+    position: absolute;
+    display: none;
+    z-index: 10000;
+}
+
+.uzi_hover_content>div{
+    color: #CACACC;
+    height:39px;
+    border-bottom: 1px solid #524A47;
+    line-height: 38px;
+    cursor: pointer;
+}
+
+.uzi_hover_content>div:hover{
+    color: white;
+}
+
+
+.uzi_top_nav_right{
+    width: 269px;
+    height: 100%;
+    /*background: green;*/
+    float: right;
+    color: white;
+}
+
+.uzi_top_nav_right>div{
+    cursor: pointer;
+}
+
+.uzi_top_nav_right>div>img{
+    width: 15px;
+}
+
+.uzi_top_nav_right>div>img,.uzi_top_nav_right>div>span{
+    vertical-align: middle;
+}
+
+
+.karsa_board{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10002;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0, .8);
+    display: none;
+}
+
+.karsa_forget_password{
+    cursor: pointer;
+}
+
+.karsa_forget_password>img,.karsa_forget_password>span{
+    vertical-align: middle;
+}
+
+.karsa_btn{
+    text-decoration: none !important;
+    cursor: pointer !important;
+    margin-left: 276px !important;
+}
+
+.karsa_btn>span:first-child {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 9px 42px;
+    border-radius: 5px;
+}
+
+#karsa_login{
+    height: 372px !important;
+}
+
