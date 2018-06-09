@@ -105,21 +105,7 @@ class Index extends Base
          $param['config_key'] = NumberConfig::QIAN_TU_LOGIN_STATUS;
          $config = Config::findEntity($param);
          if($config['config_value'] == 0){ //未登录状态
-             $data = $this->requestPython(NumberConfig::PY_LOGIN_URL, null);
-             if($data['code'] == '200'){
-                 $update['config_value'] = 1;
-                 Config::updateEntity(NumberConfig::QIAN_TU_LOGIN_STATUS, $update);
-                 unset($data);
-                 $data = $this->requestPython(NumberConfig::PY_DOWNLOAD_URL, $requestParam['url']);
-                 if($data['code'] == '200'){
-                     $this->downloadToBrowser($requestParam['url']);
-                 }elseif($data['code'] == '500'){
-                     $this->alert($data['msg']);
-                 }else{
-                     $this->alert('服务器错误');
-                 }
-             }
-             $this->alert('服务器错误');
+             $this->subLogin($requestParam['url']);
          }
          //登录状态
         $data = $this->requestPython(NumberConfig::PY_DOWNLOAD_URL, $requestParam['url']);
@@ -129,20 +115,44 @@ class Index extends Base
         $this->alert('服务器错误');
     }
 
+    //三方登录调用python登录
+    private function subLogin($url)
+    {
+        $data = $this->requestPython(NumberConfig::PY_LOGIN_URL, null);
+        if($data['code'] == '200'){
+            $update['config_value'] = 1;
+            Config::updateEntity(NumberConfig::QIAN_TU_LOGIN_STATUS, $update);
+            unset($data);
+            $data = $this->requestPython(NumberConfig::PY_DOWNLOAD_URL, $url);
+            if($data['code'] == '200'){
+                $this->downloadToBrowser($url);
+            }elseif($data['code'] == '500'){
+                $this->alert($data['msg']);
+            }else{
+                $this->alert('服务器错误');
+            }
+        }
+        $this->alert('服务器错误');
+    }
+
+
     //下载
     private function downloadToBrowser($downloadUrl)
     {
+
         $param['download_url'] = $downloadUrl;
         $fileEntity = File::findEntity($param);
         $file = fopen($fileEntity['file_url'], "r");
         Header("Content-type: application/octet-stream");
         Header("Accept-Ranges: bytes");
         Header("Accept-Length: " . filesize($fileEntity['file_url']));
-        Header("Content-Disposition: attachment; filename=" . $fileEntity['file_url']);
+        $user = Session::get('user');
+        $fileName = $user['user_id'].'-'.time();
+        Header("Content-Disposition: attachment; filename=".$fileName);
+//        Header("Content-Disposition: attachment; filename=" . $fileEntity['file_url']);
         echo fread($file, filesize($fileEntity['file_url']));
         fclose($file);
         //记录下载
-        $user = Session::get('user');
         $updateArr['rest_download_times'] = $user['rest_download_times'] - 1;
         User::updateEntity($user['user_id'], $updateArr);
         exit ();

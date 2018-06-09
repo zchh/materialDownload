@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:88:"F:\php_project\git_project\materialDownload\public/../application/admin\view\login2.html";i:1528524505;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:88:"F:\php_project\git_project\materialDownload\public/../application/admin\view\login2.html";i:1528526179;}*/ ?>
 <!DOCTYPE html>
 <!-- saved from url=(0039)http://yun.vjietiao.com/agent/login.php -->
 <html class="hf">
@@ -69,32 +69,32 @@
         </div>
     </section>
 
-    <section class="footer login_foot">
-        <div class="container over">
-            <ul>
-                <li>
-                    <a href="">使用须知</a>
-                </li>
-                <li>
-                    <a href="">常见问题</a>
-                </li>
-                <li>
-                    <a href="">客户服务</a>
-                </li>
-                <li>
-                    <a href="">信息反馈</a>
-                </li>
-            </ul>
-            <div class="ewm_int">
-					<span>
-						<img src="../../static/login/images/201711241715517472.png" width="54" height="54">
-					</span>
-            </div>
-            <p>
-                <span>版权所有：福州腾云数据科技有限公司 COPYRIGHT@2017 豫ICP备09082528号-1</span>
-            </p>
-        </div>
-    </section>
+    <!--<section class="footer login_foot">-->
+        <!--<div class="container over">-->
+            <!--<ul>-->
+                <!--<li>-->
+                    <!--<a href="">使用须知</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="">常见问题</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="">客户服务</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="">信息反馈</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <!--<div class="ewm_int">-->
+					<!--<span>-->
+						<!--<img src="../../static/login/images/201711241715517472.png" width="54" height="54">-->
+					<!--</span>-->
+            <!--</div>-->
+            <!--<p>-->
+                <!--<span>版权所有：福州腾云数据科技有限公司 COPYRIGHT@2017 豫ICP备09082528号-1</span>-->
+            <!--</p>-->
+        <!--</div>-->
+    <!--</section>-->
 
 </div>
 <script src="/static/layer/layer.js"></script>
