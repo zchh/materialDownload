@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="../../static/css/reset.css">
     <link rel="stylesheet" href="../../static/css/home.css">
+    <link rel="stylesheet" href="../../static/css/swiper.css">
     <script src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/js/swiper.min.js"></script>
     <!--<script>-->
-        <!--$(document).ready(function(){-->
-            <!--$("#flash_jiexi").click(function(){-->
+    <!--$(document).ready(function(){-->
+    <!--$("#flash_jiexi").click(function(){-->
 
-                <!--window.location.href="/user/analysis?url="+ $(" #tflash_input_value ").val();-->
-            <!--});-->
-        <!--});-->
+    <!--window.location.href="/user/analysis?url="+ $(" #tflash_input_value ").val();-->
+    <!--});-->
+    <!--});-->
     <!--</script>-->
 </head>
 
@@ -39,10 +41,41 @@
                 </div>
             </div>
             <div class="uzi_top_nav_right">
+                <style>
+                    .swiper-container{
+                        height: 20px;
+                    }
+                    .swiper-slide img{
+                        width: 10px;
+                    }
+                </style>
+
                 <div style="margin-top: 14px">
-                    <img src="../../static/images/flash_laba.png" alt="error">
-                    <span>不同网站的权限可以联系客户补差升级</span>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            {notempty name="noticeArr"}
+                            {volist name="noticeArr" id="single"}
+                            <div class="swiper-slide">
+                                <img src="../../static/images/flash_laba.png" alt="error">
+                                <span>{$single.notice_content}</span>
+                            </div>
+                            {/volist}
+                            {/notempty}
+                        </div>
+                    </div>
                 </div>
+
+                <script>
+                    var swiper = new Swiper('.swiper-container', {
+                        direction: 'vertical',
+                        loop: true,
+                        autoplay: {
+                            delay: 1000,//秒
+                            disableOnInteraction: false,//滑动不会失效
+                        },
+                    });
+                </script>
+
             </div>
         </div>
     </div>
@@ -117,7 +150,7 @@
                             <!--<img src="../../static/images/qiantuwang_13.jpg">-->
                         </div>
                         <!--<div style="margin-top: 10px">-->
-                            <!--<img src="../../static/images/qiantuwang_21.jpg" style="cursor: pointer">-->
+                        <!--<img src="../../static/images/qiantuwang_21.jpg" style="cursor: pointer">-->
                         <!--</div>-->
                     </div>
                 </div>

@@ -12,6 +12,7 @@ use app\common\model\AdminToken;
 use app\common\model\Config;
 use app\common\model\File;
 use app\common\model\MaterialWebsite;
+use app\common\model\Notice;
 use app\common\model\User;
 use app\common\selfConfig\NumberConfig;
 use think\Controller;
@@ -67,6 +68,10 @@ class Index extends Base
         $param['config_key'] = StatusCode::TEACHING_VIDEO_CONFIG;
         $config = Config::findEntity($param);
         $user['video_url'] = $config['config_value'];
+        unset($param);
+        $param['is_open'] = 1;
+        $user['noticeArr'] =  Notice::selectEntity($param);
+
         return $this->fetch('/index', $user);
     }
 
