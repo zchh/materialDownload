@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:88:"F:\php_project\git_project\materialDownload\public/../application/admin\view\login2.html";i:1528524505;}*/ ?>
 <!DOCTYPE html>
 <!-- saved from url=(0039)http://yun.vjietiao.com/agent/login.php -->
 <html class="hf">
@@ -96,7 +97,7 @@
     </section>
 
 </div>
-<script src="__STATIC__/layer/layer.js"></script>
+<script src="/static/layer/layer.js"></script>
 <script language="JavaScript">
 
     $("#btn").on("click",function () {

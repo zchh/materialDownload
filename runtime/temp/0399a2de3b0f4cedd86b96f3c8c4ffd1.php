@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:86:"F:\php_project\git_project\materialDownload\public/../application/user\view\login.html";i:1528525591;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,6 +54,7 @@
 <script src="../../static/bower_components/jquery/dist/jquery.min.js"></script>
 <script>
     $("#btn").on("click",function () {
+
         //管理员登录
         $.ajax({
             type: "post",

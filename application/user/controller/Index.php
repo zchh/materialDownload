@@ -71,7 +71,6 @@ class Index extends Base
         unset($param);
         $param['is_open'] = 1;
         $user['noticeArr'] =  Notice::selectEntity($param);
-
         return $this->fetch('/index', $user);
     }
 

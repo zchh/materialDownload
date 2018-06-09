@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:86:"F:\php_project\git_project\materialDownload\public/../application/user\view\index.html";i:1528523684;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +48,7 @@
 
     <!--顶部导航栏-->
     <div class="uzi_top_nav">
-        <p style="position: absolute; left: 25px;height: 50px;line-height: 50px;color: #ffffff"> {$account_number}，欢迎您！</p>
+        <p style="position: absolute; left: 25px;height: 50px;line-height: 50px;color: #ffffff"> <?php echo $account_number; ?>，欢迎您！</p>
 
 
         <div class="uzi_top_nav_inner">
@@ -76,14 +77,12 @@
                 <div style="margin-top: 14px">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            {notempty name="noticeArr"}
-                            {volist name="noticeArr" id="single"}
+                            <?php if(!(empty($noticeArr) || (($noticeArr instanceof \think\Collection || $noticeArr instanceof \think\Paginator ) && $noticeArr->isEmpty()))): if(is_array($noticeArr) || $noticeArr instanceof \think\Collection || $noticeArr instanceof \think\Paginator): $i = 0; $__LIST__ = $noticeArr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$single): $mod = ($i % 2 );++$i;?>
                             <div class="swiper-slide">
                                 <img src="../../static/images/flash_laba.png" alt="error">
-                                <span>{$single.notice_content}</span>
+                                <span><?php echo $single['notice_content']; ?></span>
                             </div>
-                            {/volist}
-                            {/notempty}
+                            <?php endforeach; endif; else: echo "" ;endif; endif; ?>
                         </div>
                     </div>
                 </div>
@@ -149,8 +148,8 @@
                 <div style="padding: 15px 18px">
                     <div class="uzi_account_message">
                         <div>实用期限：[次数账号]</div>
-                        <div>剩余次数：[{$rest_download_times}]次</div>
-                        <div>账号权限：{$permissionStr}</div>
+                        <div>剩余次数：[<?php echo $rest_download_times; ?>]次</div>
+                        <div>账号权限：<?php echo $permissionStr; ?></div>
                         <div>账号说明：[终身]账号[剩余次数]为每天剩余次数</div>
                     </div>
                 </div>
@@ -160,11 +159,9 @@
                 <div style="padding: 15px 18px">
                     <div class="uzi_image_website">
                         <div>
-                            {notempty name="permission"}
-                            {volist name="permissionArr" id="single"}
-                            <a href="{$single.website_url}"> <img src="{$single.website_pic_url}" onclick="test()"></a>
-                            {/volist}
-                            {/notempty}
+                            <?php if(!(empty($permission) || (($permission instanceof \think\Collection || $permission instanceof \think\Paginator ) && $permission->isEmpty()))): if(is_array($permissionArr) || $permissionArr instanceof \think\Collection || $permissionArr instanceof \think\Paginator): $i = 0; $__LIST__ = $permissionArr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$single): $mod = ($i % 2 );++$i;?>
+                            <a href="<?php echo $single['website_url']; ?>"> <img src="<?php echo $single['website_pic_url']; ?>" onclick="test()"></a>
+                            <?php endforeach; endif; else: echo "" ;endif; endif; ?>
                             <!--<img src="../../static/images/qiantuwang_03.jpg" onclick="test()">-->
                             <!--<img src="../../static/images/qiantuwang_05.jpg">-->
                             <!--<img src="../../static/images/qiantuwang_07.jpg">-->
@@ -394,7 +391,7 @@
     });
 
     function view_url() {
-        window.location.href= '{$video_url}';
+        window.location.href= '<?php echo $video_url; ?>';
     }
 
     function bind(type) {
