@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"D:\code_file\php\materialDownload\public/../application/user\view\index.html";i:1528453315;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"D:\code_file\php\materialDownload\public/../application/user\view\index.html";i:1528555735;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,15 +10,36 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="../../static/css/reset.css">
     <link rel="stylesheet" href="../../static/css/home.css">
-    <script src="../../static/js/jquery.min.js"></script>
-    <!--<script>-->
-        <!--$(document).ready(function(){-->
-            <!--$("#flash_jiexi").click(function(){-->
+    <link rel="stylesheet" href="../../static/css/swiper.css">
 
-                <!--window.location.href="/user/analysis?url="+ $(" #tflash_input_value ").val();-->
-            <!--});-->
-        <!--});-->
+    <link rel="stylesheet" href="../../static/dist/css/AdminLTE.min.css">
+
+    <link rel="stylesheet" href="../../static/bower_components/Ionicons/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <script src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/js/swiper.min.js"></script>
+    <!--<script>-->
+    <!--$(document).ready(function(){-->
+    <!--$("#flash_jiexi").click(function(){-->
+
+    <!--window.location.href="/user/analysis?url="+ $(" #tflash_input_value ").val();-->
+    <!--});-->
+    <!--});-->
     <!--</script>-->
+    <style>
+        .uzi_top_nav>p:before{
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: url(../../static/images/u69.png) no-repeat 0 0 /100% 100%;
+            position: absolute;
+            left: -16px;
+            top:19px;
+        }
+    </style>
 </head>
 
 <body style="min-width: 1200px">
@@ -27,10 +48,14 @@
 
     <!--顶部导航栏-->
     <div class="uzi_top_nav">
+        <p style="position: absolute; left: 25px;height: 50px;line-height: 50px;color: #ffffff"> <?php echo $account_number; ?>，欢迎您！</p>
+
+
         <div class="uzi_top_nav_inner">
+
             <div class="uzi_top_nav_left" id="uzi_top_nav_left">
                 <div style="width: 100%;height: 100%;line-height: 50px;cursor:pointer;">
-                    <span style="vertical-align: middle">账户安全</span> <i class="fa fa-angle-down" style="font-size: 18px;vertical-align: middle" id="uzi_tubiao"></i>
+                    <span style="vertical-align: middle">账户上安全</span> <i class="fa fa-angle-down" style="font-size: 18px;vertical-align: middle" id="uzi_tubiao"></i>
                 </div>
                 <div class="uzi_hover_content">
                     <div id="clearlove_two_click">绑定手机号</div>
@@ -40,10 +65,39 @@
                 </div>
             </div>
             <div class="uzi_top_nav_right">
+                <style>
+                    .swiper-container{
+                        height: 20px;
+                    }
+                    .swiper-slide img{
+                        width: 10px;
+                    }
+                </style>
+
                 <div style="margin-top: 14px">
-                    <img src="../../static/images/flash_laba.png" alt="error">
-                    <span>不同网站的权限可以联系客户补差升级</span>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php if(!(empty($noticeArr) || (($noticeArr instanceof \think\Collection || $noticeArr instanceof \think\Paginator ) && $noticeArr->isEmpty()))): if(is_array($noticeArr) || $noticeArr instanceof \think\Collection || $noticeArr instanceof \think\Paginator): $i = 0; $__LIST__ = $noticeArr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$single): $mod = ($i % 2 );++$i;?>
+                            <div class="swiper-slide">
+                                <img src="../../static/images/flash_laba.png" alt="error">
+                                <span><?php echo $single['notice_content']; ?></span>
+                            </div>
+                            <?php endforeach; endif; else: echo "" ;endif; endif; ?>
+                        </div>
+                    </div>
                 </div>
+
+                <script>
+                    var swiper = new Swiper('.swiper-container', {
+                        direction: 'vertical',
+                        loop: true,
+                        autoplay: {
+                            delay: 1000,//秒
+                            disableOnInteraction: false,//滑动不会失效
+                        },
+                    });
+                </script>
+
             </div>
         </div>
     </div>
@@ -116,7 +170,7 @@
                             <!--<img src="../../static/images/qiantuwang_13.jpg">-->
                         </div>
                         <!--<div style="margin-top: 10px">-->
-                            <!--<img src="../../static/images/qiantuwang_21.jpg" style="cursor: pointer">-->
+                        <!--<img src="../../static/images/qiantuwang_21.jpg" style="cursor: pointer">-->
                         <!--</div>-->
                     </div>
                 </div>
@@ -326,10 +380,37 @@
 <script src="../../static/js/flash_home.js"></script>
 <script>
 
+    var nn = 15;
+    var tipId;
     //解析
     $("#flash_jiexi").click(function(){
-        window.location.href="/user/analysis?url="+  $("[name='flash_input_value']").val();
+        var url = $("[name='flash_input_value']").val();
+        if(!(/^[A-Za-z]+:\/\/[A-Za-z0-9-_]+.[A-Za-z0-9-_%&\?\/.:=]+$/).test($("[name='flash_input_value']").val().trim())){
+            alert('请填写正确的url！');
+            return;
+        }
+        if($("#flash_jiexi").html() !=  '解析中' ) {
+            window.location.href="/user/analysis?url="+url;
+            tipId = window.setInterval("count()", 1000);
+        }
     });
+
+
+    function count() {
+        if (nn > 0) {
+            $("#flash_jiexi").html('解析中');
+            nn--;
+        } else {
+            nn = 15;
+            $("#flash_jiexi").html('解析');
+            window.clearInterval(tipId); //清除循环事件
+        }
+    }
+
+
+
+
+
 
     //退出登录
     $("#clearlove_off").click(function(){

@@ -383,10 +383,37 @@
 <script src="../../static/js/flash_home.js"></script>
 <script>
 
+    var nn = 15;
+    var tipId;
     //解析
     $("#flash_jiexi").click(function(){
-        window.location.href="/user/analysis?url="+  $("[name='flash_input_value']").val();
+        var url = $("[name='flash_input_value']").val();
+        if(!(/^[A-Za-z]+:\/\/[A-Za-z0-9-_]+.[A-Za-z0-9-_%&\?\/.:=]+$/).test($("[name='flash_input_value']").val().trim())){
+            alert('请填写正确的url！');
+            return;
+        }
+        if($("#flash_jiexi").html() !=  '解析中' ) {
+            window.location.href="/user/analysis?url="+url;
+            tipId = window.setInterval("count()", 1000);
+        }
     });
+
+
+    function count() {
+        if (nn > 0) {
+            $("#flash_jiexi").html('解析中');
+            nn--;
+        } else {
+            nn = 15;
+            $("#flash_jiexi").html('解析');
+            window.clearInterval(tipId); //清除循环事件
+        }
+    }
+
+
+
+
+
 
     //退出登录
     $("#clearlove_off").click(function(){

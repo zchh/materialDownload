@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"D:\code_file\php\materialDownload\public/../application/user\view\login.html";i:1528453315;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"D:\code_file\php\materialDownload\public/../application/user\view\login.html";i:1528525925;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +23,7 @@
             <div class="login-username">
                 <label for="account_number">账号：</label>
                 <input type="text" name="account_number" id="account_number">
-                <img src="../../static/images/flash_chacha.png" alt="error">
+                <img src="../../static/images/flash_chacha.png" alt="error" id="clear">
             </div>
             <div class="login-password">
                 <label for="password">密码：</label>
@@ -76,7 +76,11 @@
                 alert('系统错误');
             }
         });
-    })
+    });
+
+    $("#clear").click(function () {
+        $("[name='account_number']").val(null);
+    });
 
 
     $(".login-buy").click(function () {

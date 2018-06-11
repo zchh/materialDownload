@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:78:"D:\code_file\php\materialDownload\public/../application/admin\view\login2.html";i:1528513005;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:78:"D:\code_file\php\materialDownload\public/../application/admin\view\login2.html";i:1528528378;}*/ ?>
 <!DOCTYPE html>
 <!-- saved from url=(0039)http://yun.vjietiao.com/agent/login.php -->
 <html class="hf">
@@ -12,7 +12,7 @@
     <!-- IOS6全屏 Chrome高版本全屏 ================================================== -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>素材管理系统后台登录</title>
+    <title>后台登录</title>
     <link rel="stylesheet" type="text/css" href="../../static/login/css/style.css">
     <script type="text/javascript" src="../../static/login/js/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="../../static/login/js/jquerys.js"></script>
@@ -69,38 +69,39 @@
         </div>
     </section>
 
-    <section class="footer login_foot">
-        <div class="container over">
-            <ul>
-                <li>
-                    <a href="">使用须知</a>
-                </li>
-                <li>
-                    <a href="">常见问题</a>
-                </li>
-                <li>
-                    <a href="">客户服务</a>
-                </li>
-                <li>
-                    <a href="">信息反馈</a>
-                </li>
-            </ul>
-            <div class="ewm_int">
-					<span>
-						<img src="../../static/login/images/201711241715517472.png" width="54" height="54">
-					</span>
-            </div>
-            <p>
-                <span>版权所有：福州腾云数据科技有限公司 COPYRIGHT@2017 豫ICP备09082528号-1</span>
-            </p>
-        </div>
-    </section>
+    <!--<section class="footer login_foot">-->
+        <!--<div class="container over">-->
+            <!--<ul>-->
+                <!--<li>-->
+                    <!--<a href="">使用须知</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="">常见问题</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="">客户服务</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="">信息反馈</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <!--<div class="ewm_int">-->
+					<!--<span>-->
+						<!--<img src="../../static/login/images/201711241715517472.png" width="54" height="54">-->
+					<!--</span>-->
+            <!--</div>-->
+            <!--<p>-->
+                <!--<span>版权所有：福州腾云数据科技有限公司 COPYRIGHT@2017 豫ICP备09082528号-1</span>-->
+            <!--</p>-->
+        <!--</div>-->
+    <!--</section>-->
 
 </div>
 <script src="/static/layer/layer.js"></script>
 <script language="JavaScript">
 
     $("#btn").on("click",function () {
+
         //管理员登录
         $.ajax({
             type: "post",

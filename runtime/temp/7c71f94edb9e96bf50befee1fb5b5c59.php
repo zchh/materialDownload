@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:87:"D:\code_file\php\materialDownload\public/../application/admin\view\mailboxTemplate.html";i:1528453315;s:71:"D:\code_file\php\materialDownload\application\admin\view\base\base.html";i:1528513067;s:42:"../application/admin/view/base/header.html";i:1528453315;s:43:"../application/admin/view/base/sidebar.html";i:1528453315;s:42:"../application/admin/view/base/footer.html";i:1528453315;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:5:{s:87:"D:\code_file\php\materialDownload\public/../application/admin\view\mailboxTemplate.html";i:1528453315;s:71:"D:\code_file\php\materialDownload\application\admin\view\base\base.html";i:1528513302;s:42:"../application/admin/view/base/header.html";i:1528453315;s:43:"../application/admin/view/base/sidebar.html";i:1528453315;s:42:"../application/admin/view/base/footer.html";i:1528453315;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../static/dist/css/skins/_all-skins.min.css">
-    
+
     <link rel="stylesheet" href="../../static/plugins/timepicker/bootstrap-timepicker.min.css">
 
 
